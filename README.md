@@ -3,7 +3,7 @@
 This is a repository for studying and applying Machine 
 Learning (ML) techniques to the pima dataset.
 
-## Dataset
+## Dataset description
 
 * Name: Pima Indians Diabetes Database
 * Provider: Kaggle
@@ -45,3 +45,15 @@ Age (years)
 - **Outcome**:
 Class variable (0 or 1) 268 of 768 are 1, the others are 0
 
+## Preprocessing
+
+Some preprocessing methods are applied to the original dataset.
+
+First, we split the data into predictor variables `X` and target variable `y`.
+
+Then, we separate data into train and test according to a specified ratio.
+In this step, we can also mantain the classes proportion according to the 
+original data distribution for imbalanced datasets. 
+
+Finally, we scale the predictor variables using some scaler (default
+option is `StandardScaler` from scikit-learn). 
