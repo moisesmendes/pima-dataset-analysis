@@ -11,7 +11,9 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_recall_fscore_support
 
-from ml.preprocessing import ARR, SR
+from preprocessing import ARR, SR
+
+NDIGITS = 3
 
 
 def classification_metrics(y_true: ARR, y_pred: ARR) -> tp.Tuple[float, float, float, float]:
@@ -26,7 +28,8 @@ def classification_metrics(y_true: ARR, y_pred: ARR) -> tp.Tuple[float, float, f
     """
     accuracy = accuracy_score(y_true, y_pred)
     precision, recall, fscore, _ = precision_recall_fscore_support(y_true, y_pred)
-    return accuracy, precision, recall, fscore
+    return (accuracy.round(NDIGITS), precision.round(NDIGITS),
+            recall.round(NDIGITS), fscore.round(NDIGITS))
 
 
 def multiple_run_metrics(predictions: tp.List[tp.Tuple[ARR, ARR]]) -> tp.Dict[str, SR]:
@@ -39,4 +42,7 @@ def multiple_run_metrics(predictions: tp.List[tp.Tuple[ARR, ARR]]) -> tp.Dict[st
     """
     metrics = [classification_metrics(y_true=y_true, y_pred=y_pred) for y_true, y_pred in predictions]
     df_metrics = pd.DataFrame(data=metrics, columns=['accuracy', 'precision', 'recall', 'fscore'])
-    return {'mean': df_metrics.mean(axis=0), 'std': df_metrics.std(axis=0)}
+    return {
+        'mean': df_metrics.mean(axis=0),
+        'std': df_metrics.std(axis=0)
+    }
