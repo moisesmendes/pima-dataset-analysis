@@ -6,8 +6,8 @@ __all__ = [
 
 import typing as tp
 
-from ml.preprocessing import randomize_data, splip_x_y, generate_train_test, scale_data
-from ml.preprocessing import DF, SR, ARR
+from preprocessing import randomize_data, splip_x_y, generate_train_test, scale_data
+from preprocessing import DF, ARR
 
 
 class Classifier:
@@ -57,7 +57,7 @@ class Classifier:
         :return: True and predicted values for each run.
         :rtype: ``dict`` of ``str`` to ``list`` of ``tuple`` of ``numpy.array``
         """
-        predictions = [self.single_run(kwargs) for i in range(n)]
+        predictions = [self.single_run(**kwargs) for i in range(n)]
         return {
             'train': [pred['train'] for pred in predictions],
             'test': [pred['test'] for pred in predictions]
