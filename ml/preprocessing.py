@@ -1,9 +1,13 @@
 __author__ = 'Moises Mendes'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __all__ = [
+    'randomize_data',
     'splip_x_y',
     'generate_train_test',
     'scale_data',
+    'DF',
+    'SR',
+    'ARR'
 ]
 
 import typing as tp
@@ -15,6 +19,17 @@ from sklearn.preprocessing import StandardScaler
 DF = pd.DataFrame
 SR = pd.Series
 ARR = np.ndarray
+
+
+def randomize_data(df: DF) -> DF:
+    """Randomly resample dataframe.
+
+    :param df: Dataset with predictor and target variables.
+    :type df: ``pandas.DataFrame``
+    :return: Randomized dataset.
+    :rtype: ``pandas.DataFrame``
+    """
+    return df.sample(frac=1).reset_index(drop=True)
 
 
 def splip_x_y(df: DF, target_col: str) -> tp.Tuple[DF, SR]:
